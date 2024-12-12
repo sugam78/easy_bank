@@ -1,4 +1,4 @@
-package com.easybank.easy_bank
+package com.easybank.app
 
 import io.flutter.embedding.android.FlutterActivity
 

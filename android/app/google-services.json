@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "622975986391",
+    "project_id": "easy-bank-ad0bb",
+    "storage_bucket": "easy-bank-ad0bb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:622975986391:android:5ac125bc9022d7eeef1e92",
+        "android_client_info": {
+          "package_name": "com.easybank.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABtvjjxhrLeIcB7coj6zyaH2jwtoASsZA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
