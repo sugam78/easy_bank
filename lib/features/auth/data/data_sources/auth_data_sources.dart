@@ -1,7 +1,7 @@
-import 'package:easy_bank/common/services/api_handler.dart';
-import 'package:easy_bank/constants/api_constants.dart';
+import 'package:easy_bank/core/common/services/api_handler.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../../core/constants/api_constants.dart';
 import '../models/user_model.dart';
 
 abstract class AuthRemoteDataSource {

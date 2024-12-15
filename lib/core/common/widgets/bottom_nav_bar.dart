@@ -1,4 +1,4 @@
-import 'package:easy_bank/resources/app_colors.dart';
+import 'package:easy_bank/core/resources/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

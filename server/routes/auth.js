@@ -22,7 +22,6 @@ authRouter.post("/api/signup", async (req, res) => {
     try {
         const { name, phone, password, pin } = req.body;
 
-        console.log(pin.length);
         // Check if a user with the same phone number already exists
         const existingUser = await User.findOne({ phone });
         if (existingUser) {
@@ -35,13 +34,20 @@ authRouter.post("/api/signup", async (req, res) => {
         // Generate a unique 14-digit account number
         const accNumber = await generateUniqueAccountNumber();
 
+        // Set account creation date and expiry date
+        const accountCreatedDate = new Date();
+        const accountExpiryDate = new Date(accountCreatedDate);
+        accountExpiryDate.setFullYear(accountCreatedDate.getFullYear() + 1);
+
         // Create a new user
         let user = new User({
             name,
             phone,
             password: hashedPassword,
             pin,
-            accNumber
+            accNumber,
+            accountCreatedDate,
+            accountExpiryDate
         });
 
         user = await user.save();
@@ -65,7 +71,15 @@ authRouter.post("/api/login",async(req,res)=>{
             return res.status(400).json({msg: "Wrong Password"});
         }
         const token = jwt.sign({id: user._id},"passwordKey");
-        res.json({token,...user._doc});
+        const responseUser = {
+                    _id: user._id,
+                    name: user.name,
+                    phone: user.phone,
+                    accNumber: user.accNumber,
+                    token: token
+                };
+
+        res.json(responseUser);
     }
     catch(e){
         res.status(500).json({error: e.message});

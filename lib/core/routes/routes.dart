@@ -7,8 +7,8 @@ import 'package:easy_bank/features/profile/presentation/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/splash/presentation/pages/splash_screen.dart';
 import '../common/widgets/bottom_nav_bar.dart';
-import '../features/splash/presentation/pages/splash_screen.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 final rootNavigatorHomeKey = GlobalKey<NavigatorState>();

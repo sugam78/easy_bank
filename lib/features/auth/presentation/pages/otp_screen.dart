@@ -1,6 +1,6 @@
 import 'package:easy_bank/features/auth/presentation/pages/login_screen.dart';
-import 'package:easy_bank/resources/app_colors.dart';
-import 'package:easy_bank/resources/dimensions.dart';
+import 'package:easy_bank/core/resources/app_colors.dart';
+import 'package:easy_bank/core/resources/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';

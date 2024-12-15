@@ -21,7 +21,7 @@ class AuthVerificationSuccess extends AuthState {}
 class AuthBackendSubmissionSuccess extends AuthState {}
 
 class AuthLoginSuccess extends AuthState {
-  final UserModel userModel;
+  final User userModel;
 
   AuthLoginSuccess(this.userModel);
 

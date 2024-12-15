@@ -1,9 +1,9 @@
-import 'package:easy_bank/resources/dimensions.dart';
+import 'package:easy_bank/core/resources/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../common/widgets/custom_text_field.dart';
+import '../../../../core/common/widgets/custom_text_field.dart';
 import '../manager/auth_bloc.dart';
 
 class LoginForm extends StatelessWidget {

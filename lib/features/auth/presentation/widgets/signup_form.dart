@@ -2,8 +2,8 @@ import 'package:easy_bank/features/auth/presentation/pages/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../common/widgets/custom_text_field.dart';
-import '../../../../resources/dimensions.dart';
+import '../../../../core/common/widgets/custom_text_field.dart';
+import '../../../../core/resources/dimensions.dart';
 import '../manager/auth_bloc.dart';
 
 

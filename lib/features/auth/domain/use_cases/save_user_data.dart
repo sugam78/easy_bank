@@ -6,6 +6,6 @@ class SaveUserDataUseCase {
   SaveUserDataUseCase(this.repository);
 
   Future<void> execute(String name,String phoneNumber, String password, String pin) {
-    return repository.saveUserData(name,phoneNumber, password, pin);
+    return repository.saveUserData(name, phoneNumber, password, pin);
   }
 }

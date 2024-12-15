@@ -3,7 +3,7 @@ import 'package:easy_bank/features/splash/presentation/pages/splash_screen.dart'
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../resources/dimensions.dart';
+import '../../../../core/resources/dimensions.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

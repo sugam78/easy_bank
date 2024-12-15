@@ -1,5 +1,4 @@
 
-
 import '../../domain/entities/user.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../data_sources/auth_data_sources.dart';
@@ -16,12 +15,12 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<bool> verifyOTP(String otp) {
-    return remoteDataSource.verifyOTP( otp);
+    return remoteDataSource.verifyOTP(otp);
   }
 
   @override
   Future<void> saveUserData(String name,String phoneNumber, String password, String pin) {
-    return remoteDataSource.saveUserData(name,phoneNumber, password, pin);
+    return remoteDataSource.saveUserData(name, phoneNumber, password, pin);
   }
 
   @override
