@@ -1,6 +1,10 @@
 import 'package:easy_bank/features/auth/presentation/pages/login_screen.dart';
 import 'package:easy_bank/features/auth/presentation/pages/otp_screen.dart';
 import 'package:easy_bank/features/auth/presentation/pages/signup_screen.dart';
+import 'package:easy_bank/features/fund_transfer/presentation/pages/pin_field.dart';
+import 'package:easy_bank/features/fund_transfer/presentation/pages/transaction_success.dart';
+import 'package:easy_bank/features/fund_transfer/presentation/pages/transfer_using_acc_no.dart';
+import 'package:easy_bank/features/fund_transfer/presentation/pages/transfer_using_mobile.dart';
 import 'package:easy_bank/features/history/presentation/widgets/history_screen.dart';
 import 'package:easy_bank/features/home/presentation/pages/home_screen.dart';
 import 'package:easy_bank/features/profile/presentation/pages/profile.dart';
@@ -85,11 +89,36 @@ final route = GoRouter(
         builder: (context, state) => const SignupScreen(),
       ),
       GoRoute(
+        path: '/transferMobile',
+        name: 'transferMobile',
+        builder: (context, state) => const TransferUsingMobile(),
+      ),
+      GoRoute(
+        path: '/transactionSuccess',
+        name: 'transactionSuccess',
+        builder: (context, state) {
+          final extra = state.extra as Map<String, String>;
+          return TransactionSuccess(amount: extra['amount'] as String, to: extra['to'] as String);
+        },
+      ),
+      GoRoute(
+        path: '/pinField',
+        name: 'pinField',
+        builder: (context, state) {
+          final extra = state.extra as Map<String, String>;
+          return PinField(amount: extra['amount'] as String, accountNumber: extra['accountNumber'] as String);
+        },
+      ),
+      GoRoute(
+        path: '/transferAccountNo',
+        name: 'transferAccountNo',
+        builder: (context, state) => const TransferUsingAccNo(),
+      ),
+      GoRoute(
         path: '/otp',
         name: 'otp',
         builder: (context, state) {
           final extra = state.extra as Map<String, String>;
-          print('Extra $extra\n' *5);
           return OtpScreen(
             name: extra['name'] as String,
             password: extra['password'] as String,

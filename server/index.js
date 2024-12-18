@@ -1,6 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const authRouter = require("./routes/auth.js");
+const profileRouter = require("./routes/profile.js");
+const historyRouter = require("./routes/history.js");
+const fdRouter = require("./routes/fixed_deposit.js");
+const transactionRouter = require("./routes/transaction.js");
 
 const app = express();
 const PORT = 3000;
@@ -9,14 +13,21 @@ const DB = "mongodb+srv://paudelsugam9:sugam123@cluster0.d23pu.mongodb.net/?retr
 
 app.use(express.json());
 app.use(authRouter);
+app.use(profileRouter);
+app.use(transactionRouter);
+app.use(historyRouter);
+app.use(fdRouter);
+app.use((req, res, next) => {
+    res.status(404).send("Endpoint not found");
+});
 
 
 mongoose.connect(DB).then(()=>{
-console.log("Connection Success");
+    console.log("Connection Success");
 }).catch((e)=>{
-console.log(e);
+    console.log(e);
 });
 
 app.listen(PORT,"0.0.0.0",()=>{
-console.log(`connected to port ${PORT}`);
+    console.log(`connected to port ${PORT}`);
 });

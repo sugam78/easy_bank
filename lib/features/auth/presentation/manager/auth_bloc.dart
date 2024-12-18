@@ -60,6 +60,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoading());
       try {
         final user = await loginUseCase.execute(event.phoneNumber, event.password);
+        print(user.token);
         await Hive.box('SETTINGS').put('token', user.token);
         emit(AuthLoginSuccess(user));
       } catch (e) {

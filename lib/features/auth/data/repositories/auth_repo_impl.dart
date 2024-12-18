@@ -31,6 +31,7 @@ class AuthRepositoryImpl implements AuthRepository {
       name: userModel.name,
       phoneNumber: userModel.phoneNumber,
       accountNumber: userModel.accountNumber,
+      token: userModel.token
     );
   }
 }

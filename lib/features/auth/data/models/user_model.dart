@@ -19,7 +19,7 @@ class UserModel {
       name: json['name'],
       phoneNumber: json['phone'],
       accountNumber: json['accNumber'],
-      token: json['token']??'',
+      token: json['token']??'abcdefghijklmnopqrstuvwxyz',
     );
   }
 

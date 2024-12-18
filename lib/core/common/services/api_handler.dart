@@ -13,23 +13,20 @@ Future<dynamic> apiHandler(
   method = method.toUpperCase();
   http.Response response;
 
-  String? token = await Hive.box('SETTINGS').get('token') ?? "";
+  String token = await Hive.box('SETTINGS').get('token') ?? "";
 
-  print("Token: $token");
+  print("Token Received: $token");
   Map<String, String> headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer $token',
+    'Content-Type': 'application/json; charset=UTF-8',
+    'x-auth-token': token,
   };
-  if (token!.isEmpty) {
-    headers["Authorization"] = "Bearer $token";
-  }
 
-  if (method == 'GET') {
+  if (method.toUpperCase() == 'GET') {
     response = await http.get(
       Uri.parse(url),
       headers: headers,
     );
-  } else if (method == 'POST') {
+  } else if (method.toUpperCase() == 'POST') {
     print("Post Body: $body");
     response = await http.post(
       Uri.parse(url),
@@ -37,19 +34,19 @@ Future<dynamic> apiHandler(
       body: jsonEncode(body),
     );
     print("Response: ${response.body}");
-  } else if (method == 'PUT') {
+  } else if (method.toUpperCase() == 'PUT') {
     response = await http.put(
       Uri.parse(url),
       headers: headers,
       body: jsonEncode(body),
     );
-  } else if (method == 'PATCH') {
+  } else if (method.toUpperCase() == 'PATCH') {
     response = await http.patch(
       Uri.parse(url),
       headers: headers,
       body: jsonEncode(body),
     );
-  } else if (method == 'DELETE') {
+  } else if (method.toUpperCase() == 'DELETE') {
     response = await http.delete(Uri.parse(url), headers: headers, body: body);
   } else {
     throw Exception('Invalid method');
@@ -59,14 +56,11 @@ Future<dynamic> apiHandler(
 
   if (response.statusCode == 200 || response.statusCode == 201) {
     return jsonResponse;
-  } else if (response.statusCode == 403|| response.statusCode == 401) {
-    print("Response: ${jsonResponse}");
-    print("Status Code: ${response.statusCode}");
   } else {
-    print("Response: ${jsonResponse}");
+    print("Error Response: $jsonResponse");
     print("URL: $url");
     print("Status Code: ${response.statusCode}");
-    final errorMessage = jsonResponse["message"] ??jsonResponse["error"]?? "An error occurred";
+    final errorMessage =jsonResponse["error"]?? "An error occurred";
 
     throw Exception(errorMessage);
   }

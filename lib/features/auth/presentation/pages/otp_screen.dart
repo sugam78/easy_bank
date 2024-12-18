@@ -17,7 +17,7 @@ class OtpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final OtpFieldController otpFieldController = OtpFieldController();
-    String otp = '123456';
+    String otp = '';
     return Scaffold(
       appBar: AppBar(),
       body: BlocConsumer<AuthBloc, AuthState>(

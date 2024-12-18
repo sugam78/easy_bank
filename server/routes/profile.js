@@ -1,14 +1,14 @@
 const express = require("express");
-const authRouter = express.Router();
+const profileRouter = express.Router();
 const User = require("../models/user");
 const auth = require("../middleware/auth");
 
-authRouter.get("/api/user", auth, async (req, res) => {
+profileRouter.get("/api/user/profile", auth, async (req, res) => {
     try {
-        const user = await User.findById(req.user).select("-password -pin");
+        const user = await User.findById(req.user).select("-password -pin -history -fixedDeposits");
 
         if (!user) {
-            return res.status(404).json({ msg: "User not found" });
+            return res.status(404).json({ error: "User not found" });
         }
 
         res.json(user);
@@ -16,3 +16,5 @@ authRouter.get("/api/user", auth, async (req, res) => {
         res.status(500).json({ error: e.message });
     }
 });
+
+module.exports = profileRouter;

@@ -25,11 +25,12 @@ authRouter.post("/api/signup", async (req, res) => {
         // Check if a user with the same phone number already exists
         const existingUser = await User.findOne({ phone });
         if (existingUser) {
-            return res.status(400).json({ msg: "User with the same phone number already exists" });
+            return res.status(400).json({ error: "User with the same phone number already exists" });
         }
 
         // Generate a hashed password
         const hashedPassword = await bcryptjs.hash(password, 8);
+        const hashedPin = await bcryptjs.hash(pin, 4);
 
         // Generate a unique 14-digit account number
         const accNumber = await generateUniqueAccountNumber();
@@ -44,7 +45,7 @@ authRouter.post("/api/signup", async (req, res) => {
             name,
             phone,
             password: hashedPassword,
-            pin,
+            pin: hashedPin,
             accNumber,
             accountCreatedDate,
             accountExpiryDate
@@ -68,7 +69,7 @@ authRouter.post("/api/login",async(req,res)=>{
         }
         const isMatch = await bcryptjs.compare(password,user.password);
         if(!isMatch){
-            return res.status(400).json({msg: "Wrong Password"});
+            return res.status(400).json({error: "Wrong Password"});
         }
         const token = jwt.sign({id: user._id},"passwordKey");
         const responseUser = {

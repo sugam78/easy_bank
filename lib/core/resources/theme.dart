@@ -5,16 +5,17 @@ ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   primaryColor: AppColors.primary,
   scaffoldBackgroundColor: AppColors.lightBackground,
+  cardColor: AppColors.lightInputFill,
   appBarTheme: const AppBarTheme(
-    backgroundColor: AppColors.lightBackground,
+    backgroundColor: AppColors.appbarLight,
   ),
   textTheme: const TextTheme(
-    bodyLarge: TextStyle(color: AppColors.lightPrimaryText),
-    bodyMedium: TextStyle(color: AppColors.lightPrimaryText),
-    bodySmall: TextStyle(color: AppColors.lightSecondaryText),
-    titleLarge: TextStyle(color: AppColors.lightPrimaryText),
-    titleMedium: TextStyle(color: AppColors.lightPrimaryText),
-    titleSmall: TextStyle(color: AppColors.lightPrimaryText),
+    bodyLarge: TextStyle(color: AppColors.lightPrimaryText, fontSize: 18),
+    bodyMedium: TextStyle(color: AppColors.lightPrimaryText, fontSize: 16),
+    bodySmall: TextStyle(color: AppColors.lightSecondaryText, fontSize: 14),
+    titleLarge: TextStyle(color: AppColors.lightPrimaryText, fontSize: 24),
+    titleMedium: TextStyle(color: AppColors.lightPrimaryText, fontSize: 20),
+    titleSmall: TextStyle(color: AppColors.lightPrimaryText, fontSize: 18),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
@@ -39,15 +40,18 @@ ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   primaryColor: AppColors.primary,
   scaffoldBackgroundColor: AppColors.darkBackground,
+  canvasColor: Colors.black,
   appBarTheme: const AppBarTheme(
-    backgroundColor: AppColors.darkBackground,
+    backgroundColor: AppColors.appbarDark,
     foregroundColor: AppColors.darkPrimaryText,
   ),
   textTheme: const TextTheme(
-    bodyLarge: TextStyle(color: AppColors.darkPrimaryText),
-    bodyMedium: TextStyle(color: AppColors.darkSecondaryText),
-    bodySmall: TextStyle(color: AppColors.darkSecondaryText),
-    titleLarge: TextStyle(color: AppColors.darkPrimaryText),
+    bodyLarge: TextStyle(color: AppColors.darkPrimaryText, fontSize: 18),
+    bodyMedium: TextStyle(color: AppColors.darkPrimaryText, fontSize: 16),
+    bodySmall: TextStyle(color: AppColors.darkSecondaryText, fontSize: 14),
+    titleLarge: TextStyle(color: AppColors.darkPrimaryText, fontSize: 24),
+    titleMedium: TextStyle(color: AppColors.darkPrimaryText, fontSize: 20),
+    titleSmall: TextStyle(color: AppColors.darkPrimaryText, fontSize: 18),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
