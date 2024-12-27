@@ -1,3 +1,5 @@
+require('dotenv').config({ path: './secrets.env' });
+
 const express = require("express");
 const mongoose = require("mongoose");
 const authRouter = require("./routes/auth.js");
@@ -7,10 +9,10 @@ const transactionRouter = require("./routes/transaction.js");
 const securityRouter = require("./routes/security.js");
 const cronJobs = require('./cronJobs');
 
-const app = express();
-const PORT = 3000;
-const DB = "mongodb+srv://paudelsugam9:sugam123@cluster0.d23pu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
+const app = express();
+const DB = process.env.DB_URI;
+const PORT = 3000;
 
 app.use(express.json());
 app.use(authRouter);

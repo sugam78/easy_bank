@@ -78,11 +78,16 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<UserModel> login(String phoneNumber, String password) async {
-    final response = await apiHandler(ApiConstants.login, 'POST',body: {
-      'phone': phoneNumber,
-      'password': password
-    });
-    final user = UserModel.fromJson(response);
-    return user;
+    try{
+      final response = await apiHandler(ApiConstants.login, 'POST',body: {
+        'phone': phoneNumber,
+        'password': password
+      });
+      final user = UserModel.fromJson(response);
+      return user;
+    }
+    catch(e){
+      throw Exception('$e');
+    }
   }
 }
