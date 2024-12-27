@@ -17,8 +17,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(Duration(seconds: 3), (){
-      // context.goNamed('login');
-      context.go('/home');
+       //context.go('/login');
+       context.go('/home');
     });
   }
   @override

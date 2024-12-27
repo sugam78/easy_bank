@@ -9,6 +9,7 @@ class CheckMobileNumberBloc extends Bloc<CheckMobileNumberEvent, CheckMobileNumb
   final CheckMobileNumberUseCase mobileNumberUseCase;
   CheckMobileNumberBloc(this.mobileNumberUseCase) : super(CheckMobileNumberInitial()) {
     on<CheckMobileNumberValidity>(checkMobileNoValidity);
+    on<ResetCheckMobileNumber>(reset);
   }
   void checkMobileNoValidity(CheckMobileNumberValidity event, emit) async{
     emit(CheckMobileNumberLoading());
@@ -25,4 +26,9 @@ class CheckMobileNumberBloc extends Bloc<CheckMobileNumberEvent, CheckMobileNumb
       emit(CheckMobileNumberError('Error: $e'));
     }
   }
+
+  void reset(event,emit){
+    emit(CheckMobileNumberInitial());
+  }
+
 }

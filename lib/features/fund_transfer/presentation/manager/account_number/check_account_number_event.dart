@@ -8,3 +8,5 @@ final class CheckAccountNumberValidity extends CheckAccountNumberEvent{
 
   CheckAccountNumberValidity(this.accountNumber);
 }
+
+final class ResetCheckAccNoBloc extends CheckAccountNumberEvent{}

@@ -10,6 +10,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final GetProfileUseCase getProfileUseCase;
   ProfileBloc(this.getProfileUseCase) : super(ProfileInitial()) {
     on<GetProfile>(_getProfile);
+    on<ResetProfile>(reset);
   }
   void _getProfile(event, emit)async {
     emit(ProfileLoading());
@@ -20,5 +21,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     catch(e){
       emit(ProfileError('Error: $e'));
     }
+  }
+  void reset(event,emit){
+    emit(ProfileInitial());
   }
 }

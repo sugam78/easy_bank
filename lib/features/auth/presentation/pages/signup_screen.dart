@@ -1,4 +1,3 @@
-import 'package:easy_bank/features/auth/presentation/pages/login_screen.dart';
 import 'package:easy_bank/features/auth/presentation/widgets/signup_form.dart';
 import 'package:easy_bank/core/resources/dimensions.dart';
 import 'package:flutter/material.dart';

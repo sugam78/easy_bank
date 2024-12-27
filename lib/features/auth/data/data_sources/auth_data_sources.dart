@@ -24,20 +24,15 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       await _auth.verifyPhoneNumber(
         phoneNumber: '+977 $phoneNumber',
         verificationCompleted: (PhoneAuthCredential credential) async {
-          print('hey\n' * 10);
           await _auth.signInWithCredential(credential);
         },
         verificationFailed: (FirebaseAuthException e) {
-          print('${e.message}');
-          print('Exception\n' * 10);
           throw Exception("Verification failed: ${e.message}");
         },
         codeSent: (String verificationId, int? resendToken) {
-          print('hi\n' * 10);
           _verificationId = verificationId;
         },
         codeAutoRetrievalTimeout: (String verificationId) {
-          print('Byee\n' * 10);
           _verificationId = verificationId;
         },
         timeout: const Duration(seconds: 60),

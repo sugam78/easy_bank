@@ -19,7 +19,7 @@ class MobileNumberDataSourceImpl implements MobileNumberDataSource{
   Future<bool> checkMobileNumber(String mobileNumber)async {
     try{
       final response = await apiHandler(ApiConstants.checkMobileNo, 'POST',body: {
-        'mobileNo': mobileNumber
+        'mobileNumber': mobileNumber
       });
       if(response['message']!=null){
         return true;
@@ -27,7 +27,7 @@ class MobileNumberDataSourceImpl implements MobileNumberDataSource{
       return false;
     }
     catch(e){
-      throw Exception('Error: $e');
+      throw Exception('$e');
     }
 
   }

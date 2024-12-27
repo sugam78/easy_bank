@@ -5,9 +5,11 @@ import 'package:easy_bank/features/fund_transfer/presentation/pages/pin_field.da
 import 'package:easy_bank/features/fund_transfer/presentation/pages/transaction_success.dart';
 import 'package:easy_bank/features/fund_transfer/presentation/pages/transfer_using_acc_no.dart';
 import 'package:easy_bank/features/fund_transfer/presentation/pages/transfer_using_mobile.dart';
-import 'package:easy_bank/features/history/presentation/widgets/history_screen.dart';
+import 'package:easy_bank/features/history/presentation/pages/history_screen.dart';
 import 'package:easy_bank/features/home/presentation/pages/home_screen.dart';
 import 'package:easy_bank/features/profile/presentation/pages/profile.dart';
+import 'package:easy_bank/features/security/change_password/presentation/pages/change_password_screen.dart';
+import 'package:easy_bank/features/security/change_pin/presentation/pages/change_pin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -105,14 +107,24 @@ final route = GoRouter(
         path: '/pinField',
         name: 'pinField',
         builder: (context, state) {
-          final extra = state.extra as Map<String, String>;
-          return PinField(amount: extra['amount'] as String, accountNumber: extra['accountNumber'] as String);
+          final extra = state.extra as Map<String, String?>;
+          return PinField(amount: extra['amount'] as String, accountNumber: extra['accountNumber'],mobileNumber: extra['mobileNumber'],);
         },
       ),
       GoRoute(
         path: '/transferAccountNo',
         name: 'transferAccountNo',
         builder: (context, state) => const TransferUsingAccNo(),
+      ),
+      GoRoute(
+        path: '/changePassword',
+        name: 'changePassword',
+        builder: (context, state) => const ChangePasswordScreen(),
+      ),
+      GoRoute(
+        path: '/changePin',
+        name: 'changePin',
+        builder: (context, state) => const ChangePinScreen(),
       ),
       GoRoute(
         path: '/otp',

@@ -2,6 +2,9 @@ abstract class FundTransferRepository{
   Future<bool> transferFund(String? targetAccNo,String? mobileNumber,String pin, String amount);
 }
 
+abstract class FingerprintFundTransferRepository{
+  Future<bool> transferFundUsingFingerprint(String? targetAccNo,String? mobileNumber, String amount);
+}
 
 abstract class MobileNumberRepository{
   Future<bool> checkMobileNumber(String mobileNumber);

@@ -35,3 +35,7 @@ class LoginRequested extends AuthEvent {
 
   LoginRequested(this.phoneNumber, this.password);
 }
+class LoginWithFingerprint extends AuthEvent {
+}
+
+class ResetAuthBloc extends AuthEvent {}

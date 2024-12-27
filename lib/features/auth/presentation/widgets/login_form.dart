@@ -1,3 +1,4 @@
+import 'package:easy_bank/core/common/widgets/custom_snackbar.dart';
 import 'package:easy_bank/core/resources/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +22,10 @@ class LoginForm extends StatelessWidget {
         if(state is AuthLoginSuccess){
           context.go('/home');
         }
-
+        if(state is AuthFailure){
+          CustomSnackbar.show(context, message: state.errorMessage, type: SnackbarType.error);
+          context.read<AuthBloc>().add(ResetAuthBloc());
+        }
       },
       builder: (context, state) {
         if(state is AuthLoading){
@@ -65,17 +69,35 @@ class LoginForm extends StatelessWidget {
                 },
               ),
               SizedBox(height: deviceHeight * 0.03),
-
-
-              ElevatedButton(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    final phone = phoneController.text.trim();
-                    final password = passwordController.text.trim();
-                    context.read<AuthBloc>().add(LoginRequested(phone, password));
-                  }
-                },
-                child: const Text("Login"),
+              Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: deviceHeight * 0.055,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            final phone = phoneController.text.trim();
+                            final password = passwordController.text.trim();
+                            context.read<AuthBloc>().add(LoginRequested(phone, password));
+                          }
+                        },
+                        child: const Text("Login"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: deviceWidth * 0.02,),
+                  SizedBox(
+                    height: deviceHeight * 0.055,
+                    width: deviceWidth * 0.17,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        context.read<AuthBloc>().add(LoginWithFingerprint());
+                      },
+                      child: Icon(Icons.fingerprint_rounded),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

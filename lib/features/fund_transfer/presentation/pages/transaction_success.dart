@@ -1,5 +1,8 @@
 import 'package:easy_bank/core/resources/dimensions.dart';
+import 'package:easy_bank/features/fund_transfer/presentation/manager/fund_transfer/transfer_fund_bloc.dart';
+import 'package:easy_bank/shared/bloc/profile_bloc/profile_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
@@ -27,6 +30,9 @@ class TransactionSuccess extends StatelessWidget {
             InkWell(
               borderRadius: BorderRadius.circular(12),
               onTap: (){
+                context.read<ProfileBloc>().add(ResetProfile());
+                context.read<TransferFundBloc>().add(ResetTransferFund());
+
                 context.go('/home');
               },
               child: Container(

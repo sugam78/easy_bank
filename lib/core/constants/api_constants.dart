@@ -9,4 +9,7 @@ class ApiConstants{
   static const String checkMobileNo = '$baseUrl/api/user/checkMobileNumber';
   static const String checkAccNo= '$baseUrl/api/user/checkAccountNumber';
   static const String transferFund= '$baseUrl/api/user/balanceTransfer';
+  static const String toggleTransaction= '$baseUrl/api/user/toggleTransaction';
+  static const String changePassword= '$baseUrl/api/user/change-password';
+  static const String changePin= '$baseUrl/api/user/change-pin';
 }

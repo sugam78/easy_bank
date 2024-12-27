@@ -3,8 +3,9 @@ const mongoose = require("mongoose");
 const authRouter = require("./routes/auth.js");
 const profileRouter = require("./routes/profile.js");
 const historyRouter = require("./routes/history.js");
-const fdRouter = require("./routes/fixed_deposit.js");
 const transactionRouter = require("./routes/transaction.js");
+const securityRouter = require("./routes/security.js");
+const cronJobs = require('./cronJobs');
 
 const app = express();
 const PORT = 3000;
@@ -16,7 +17,7 @@ app.use(authRouter);
 app.use(profileRouter);
 app.use(transactionRouter);
 app.use(historyRouter);
-app.use(fdRouter);
+app.use(securityRouter);
 app.use((req, res, next) => {
     res.status(404).send("Endpoint not found");
 });
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 
 mongoose.connect(DB).then(()=>{
     console.log("Connection Success");
+    cronJobs();
 }).catch((e)=>{
     console.log(e);
 });

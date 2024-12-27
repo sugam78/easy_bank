@@ -15,6 +15,7 @@ class ProfileRepoImpl implements ProfileRepository {
         accNumber: profile.accNumber,
         currentBalance: profile.currentBalance,
         accountCreatedDate: profile.accountCreatedDate,
-        accountExpiryDate: profile.accountExpiryDate);
+        accountExpiryDate: profile.accountExpiryDate,
+        transactionEnabled: profile.transactionEnabled);
   }
 }

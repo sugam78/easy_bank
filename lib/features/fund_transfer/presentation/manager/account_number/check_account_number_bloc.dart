@@ -9,6 +9,7 @@ class CheckAccountNumberBloc extends Bloc<CheckAccountNumberEvent, CheckAccountN
   final CheckAccountNumberUseCase accountNumberUseCase;
   CheckAccountNumberBloc(this.accountNumberUseCase) : super(CheckAccountNumberInitial()) {
     on<CheckAccountNumberValidity>(checkAccNoValidity);
+    on<ResetCheckAccNoBloc>(reset);
   }
   void checkAccNoValidity( CheckAccountNumberValidity event, emit) async{
     emit(CheckAccountNumberLoading());
@@ -24,5 +25,8 @@ class CheckAccountNumberBloc extends Bloc<CheckAccountNumberEvent, CheckAccountN
     catch(e){
       emit(CheckAccountNumberError('Error: $e'));
     }
+  }
+  void reset(event,emit){
+    emit(CheckAccountNumberInitial);
   }
 }

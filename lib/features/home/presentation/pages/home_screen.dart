@@ -1,8 +1,6 @@
-import 'package:easy_bank/core/resources/app_colors.dart';
 import 'package:easy_bank/core/resources/dimensions.dart';
 import 'package:easy_bank/features/home/presentation/widgets/account_details.dart';
 import 'package:easy_bank/features/home/presentation/widgets/balance_details.dart';
-import 'package:easy_bank/features/home/presentation/widgets/fd_apply.dart';
 import 'package:easy_bank/features/home/presentation/widgets/home_top.dart';
 import 'package:easy_bank/features/home/presentation/widgets/transfer_balance_button.dart';
 import 'package:flutter/material.dart';
@@ -46,8 +44,6 @@ class HomeScreen extends StatelessWidget {
                           accuredInterest: '1024'),
                       SizedBox(height: deviceHeight * 0.03,),
                       TransferBalanceButton(),
-                      SizedBox(height: deviceHeight * 0.02,),
-                      ApplyForFDButton(),
                       SizedBox(height: deviceHeight * 0.02,),
                     ],
                   ),

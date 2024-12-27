@@ -43,8 +43,13 @@ const historySchema = mongoose.Schema({
                 message: 'Invalid receiver account number',
             }
         }
+    },
+    transactionDate :{
+    type: Date, required: true, default: Date.now
     }
 });
+
+
 const fixedDepositSchema = mongoose.Schema({
     amount: { type: Number, required: true },
     time: { type: Number, required: true },
@@ -86,7 +91,7 @@ const userSchema = mongoose.Schema({
         type: String,
         validate: {
             validator: (value) => {
-                return value.length == 4;
+                return value.length >= 4;
             },
             message: 'Please enter a valid Pin ',
         }
@@ -117,7 +122,11 @@ const userSchema = mongoose.Schema({
     accountExpiryDate: {
         type: Date,
         required: true
-    }
+    },
+    transactionEnabled: {
+            type: Boolean,
+            default: true
+        }
 });
 
 const user = mongoose.model('user', userSchema);

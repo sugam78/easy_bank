@@ -1,4 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-feature android:name="android.hardware.fingerprint" android:required="false" />
+
     <application
         android:label="easy_bank"
         android:name="${applicationName}"

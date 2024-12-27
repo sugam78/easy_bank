@@ -1,4 +1,4 @@
-import 'package:easy_bank/features/auth/presentation/pages/login_screen.dart';
+
 import 'package:easy_bank/core/resources/app_colors.dart';
 import 'package:easy_bank/core/resources/dimensions.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +8,7 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 
+import '../../../../core/common/widgets/custom_snackbar.dart';
 import '../manager/auth_bloc.dart';
 
 class OtpScreen extends StatelessWidget {
@@ -23,12 +24,15 @@ class OtpScreen extends StatelessWidget {
       body: BlocConsumer<AuthBloc, AuthState>(
   listener: (context, state) {
    if(state is AuthVerificationSuccess){
-     print('Success1 \n'*12);
      context.read<AuthBloc>().add(SendUserDataToBackend(name: name,phoneNumber: phone,password: password,pin: pin));
 
    }
    if(state is AuthBackendSubmissionSuccess){
      context.go('/login');
+   }
+   if(state is AuthFailure){
+     CustomSnackbar.show(context, message: state.errorMessage, type: SnackbarType.error);
+     context.read<AuthBloc>().add(ResetAuthBloc());
    }
   },
   builder: (context, state) {
@@ -73,7 +77,6 @@ class OtpScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  print('otp: ${otp}');
                   context
                       .read<AuthBloc>()
                       .add(VerifyPhoneNumber(otp));

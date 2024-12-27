@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:easy_bank/features/auth/domain/entities/user.dart';
+import 'package:easy_bank/features/auth/domain/use_cases/authenticate_with_fingerprint.dart';
 import 'package:easy_bank/features/auth/domain/use_cases/login.dart';
 import 'package:easy_bank/features/auth/domain/use_cases/save_user_data.dart';
 import 'package:easy_bank/features/auth/domain/use_cases/send_otp.dart';
@@ -15,8 +16,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SaveUserDataUseCase saveUserUseCase;
   final SendOtpUseCase sendOtpUseCase;
   final VerifyOtpUseCase verifyOtpUseCase;
+  final AuthenticateWthFingerprintUseCase fingerprintUseCase;
 
-  AuthBloc(this.loginUseCase, this.saveUserUseCase, this.sendOtpUseCase, this.verifyOtpUseCase) : super(AuthInitial()) {
+  AuthBloc(this.loginUseCase, this.saveUserUseCase, this.sendOtpUseCase, this.verifyOtpUseCase, this.fingerprintUseCase) : super(AuthInitial()) {
     on<SignUpRequested>((event, emit) async {
       emit(SignUpInProgress());
       try {
@@ -60,12 +62,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoading());
       try {
         final user = await loginUseCase.execute(event.phoneNumber, event.password);
-        print(user.token);
         await Hive.box('SETTINGS').put('token', user.token);
         emit(AuthLoginSuccess(user));
       } catch (e) {
         emit(AuthFailure("Login failed: ${e.toString()}"));
       }
+    });
+
+    on<LoginWithFingerprint>((event, emit) async {
+      emit(AuthLoading());
+      try {
+        final user = await fingerprintUseCase.execute();
+        await Hive.box('SETTINGS').put('token', user.token);
+        emit(AuthLoginSuccess(user));
+      } catch (e) {
+        emit(AuthFailure("Login failed: ${e.toString()}"));
+      }
+    });
+
+    on<ResetAuthBloc>((event, emit) {
+      emit(AuthInitial());
     });
   }
 }

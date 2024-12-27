@@ -1,7 +1,7 @@
-import 'package:easy_bank/features/auth/presentation/pages/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/common/widgets/custom_snackbar.dart';
 import '../../../../core/common/widgets/custom_text_field.dart';
 import '../../../../core/resources/dimensions.dart';
 import '../manager/auth_bloc.dart';
@@ -14,7 +14,6 @@ class SignUpForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
 
-    // Controllers for capturing input
     final nameController = TextEditingController();
     final phoneController = TextEditingController();
     final passwordController = TextEditingController();
@@ -23,16 +22,16 @@ class SignUpForm extends StatelessWidget {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if(state is SignUpInProgress){
-          print(nameController.text);
-          print(passwordController.text);
-          print(pinController.text);
-          print(phoneController.text);
           context.pushNamed('otp',extra: {
             'name': nameController.text,
             'password': passwordController.text,
             'phone': phoneController.text,
             'pin': pinController.text,
           });
+        }
+        if(state is AuthFailure){
+          CustomSnackbar.show(context, message: state.errorMessage, type: SnackbarType.error);
+          context.read<AuthBloc>().add(ResetAuthBloc());
         }
       },
       builder: (context, state) {
@@ -41,7 +40,6 @@ class SignUpForm extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Name Field
               CustomTextField(
                 labelText: "Name",
                 keyboardType: TextInputType.name,
@@ -111,13 +109,10 @@ class SignUpForm extends StatelessWidget {
               ),
               SizedBox(height: deviceHeight * 0.03),
 
-              // Verify Phone Number Button
               ElevatedButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
-                    final name = nameController.text.trim();
                     final phone = phoneController.text.trim();
-                    final password = passwordController.text.trim();
                     context.read<AuthBloc>().add(SignUpRequested(phone));
                   }
                 },

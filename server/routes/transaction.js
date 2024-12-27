@@ -18,6 +18,9 @@ transactionRouter.post("/api/user/checkMobileNumber", auth, async (req, res) => 
         if (!user) {
             return res.status(404).json({ error: "No user found" });
         }
+        if (req.user && user && user._id.toString() === req.user.toString()) {
+                    return res.status(400).json({ error: "Cannot validate your own mobile number" });
+                }
 
         res.status(200).json({ message: "User Found" });
 
@@ -30,7 +33,7 @@ transactionRouter.post("/api/user/checkAccountNumber", auth, async (req, res) =>
     try {
         const { accountNo } = req.body;
 
-        if (!mobileNumber) {
+        if (!accountNo) {
             return res.status(400).json({ error: "Account number is required" });
         }
 
@@ -39,6 +42,9 @@ transactionRouter.post("/api/user/checkAccountNumber", auth, async (req, res) =>
         if (!user) {
             return res.status(404).json({ error: "No user found" });
         }
+        if (user._id.toString() === req.user.toString()) {
+                    return res.status(400).json({ error: "Cannot validate your own mobile number" });
+                }
 
         res.status(200).json({ message: "User Found" });
 
@@ -50,7 +56,7 @@ transactionRouter.post("/api/user/checkAccountNumber", auth, async (req, res) =>
 
 transactionRouter.post("/api/user/balanceTransfer", auth, async (req, res) => {
     try {
-        const { accountNumber, mobileNumber,pin } = req.body;
+        const { accountNumber, mobileNumber, pin } = req.body;
         let amount = Number(req.body.amount);
 
         if (!amount || (!accountNumber && !mobileNumber)) {
@@ -61,22 +67,24 @@ transactionRouter.post("/api/user/balanceTransfer", auth, async (req, res) => {
             return res.status(400).json({ error: "Invalid amount" });
         }
 
-        const sender = await User.findById(req.user.id);
+        const sender = await User.findById(req.user);
 
         if (!sender) {
             return res.status(401).json({ error: "Unauthorized. Token expired or invalid user" });
         }
-        const isMatch = await bcryptjs.compare(pin,user.pin);
+        const isMatch = await bcryptjs.compare(pin,sender.pin);
                 if(!isMatch){
                     return res.status(400).json({error: "Wrong Pin"});
                 }
-
+        if(!sender.transactionEnabled){
+            return res.status(400).json({error: "Transaction is Disabled"});
+        }
 
         let receiver;
         if (accountNumber) {
             receiver = await User.findOne({ accNumber: accountNumber });
         } else if (mobileNumber) {
-            receiver = await User.findOne({ mobileNumber: mobileNumber });
+            receiver = await User.findOne({ phone: mobileNumber });
         }
 
         if (!receiver) {
@@ -93,11 +101,10 @@ transactionRouter.post("/api/user/balanceTransfer", auth, async (req, res) => {
             return res.status(400).json({ error: "Insufficient balance" });
         }
 
-        // Update balances
         sender.currentBalance -= amount;
         receiver.currentBalance += amount;
+         const transactionDate = new Date();
 
-        // Create transaction objects
         const transaction = {
             type: "Debit",
             amount,
@@ -108,8 +115,8 @@ transactionRouter.post("/api/user/balanceTransfer", auth, async (req, res) => {
             receiver: {
                 name: receiver.name,
                 accNumber: receiver.accNumber,
-                mobileNumber: receiver.mobileNumber,
             },
+            transactionDate: transactionDate,
         };
 
         const receiverTransaction = {
@@ -127,6 +134,18 @@ transactionRouter.post("/api/user/balanceTransfer", auth, async (req, res) => {
 
         res.status(200).json({ message: "Balance successfully transferred" });
 
+    } catch (error) {
+        console.error("Error during balance transfer:", error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+transactionRouter.post("/api/user/toggleTransaction", auth, async (req, res) => {
+    try {
+        let user = await User.findById(req.user);
+        user.transactionEnabled = ! user.transactionEnabled;
+        user = await user.save();
+        res.status(200).json(user.transactionEnabled);
     } catch (error) {
         console.error("Error during balance transfer:", error);
         res.status(500).json({ error: error.message });

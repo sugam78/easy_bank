@@ -5,6 +5,8 @@ class AppColors {
   static const Color primaryVariant = Color(0xFF0056D1);
   static const Color secondary = Color(0xFFFFC107);
   static const Color green = Colors.green;
+  static const Color black = Colors.black;
+  static const Color white = Colors.white;
   static Color snackBarSuccess = Colors.green.shade600;
   static Color snackBarError = Colors.red.shade600;
 

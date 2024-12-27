@@ -7,7 +7,7 @@ historyRouter.get("/api/user/history", auth, async (req, res) => {
     const { page = 1, limit = 10 } = req.query;
         const skip = (page - 1) * limit;
         try {
-            const user = await User.findById(req.user.id, 'history');
+            const user = await User.findById(req.user, 'history');
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }

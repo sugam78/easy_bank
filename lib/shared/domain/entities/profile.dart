@@ -5,6 +5,7 @@ class Profile {
   final double currentBalance;
   final DateTime accountCreatedDate;
   final DateTime accountExpiryDate;
+  final bool transactionEnabled;
 
   Profile({
     required this.name,
@@ -13,5 +14,6 @@ class Profile {
     required this.currentBalance,
     required this.accountCreatedDate,
     required this.accountExpiryDate,
+    required this.transactionEnabled,
   });
 }

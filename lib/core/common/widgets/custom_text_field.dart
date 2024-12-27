@@ -24,7 +24,9 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PasswordVisibilityCubit, bool>(
+    return BlocProvider(
+  create: (context) => PasswordVisibilityCubit(),
+  child: BlocBuilder<PasswordVisibilityCubit, bool>(
       builder: (context, isObscured) {
         return TextFormField(
           controller: controller,
@@ -83,6 +85,7 @@ class CustomTextField extends StatelessWidget {
           onChanged: onChanged,
         );
       },
-    );
+    ),
+);
   }
 }

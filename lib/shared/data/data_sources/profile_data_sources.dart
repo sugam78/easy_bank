@@ -16,7 +16,6 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDatSource{
       return ProfileModel.fromJson(response);
     }
     catch(e){
-      print("Error: $e");
       throw Exception("Error: $e");
     }
   }
