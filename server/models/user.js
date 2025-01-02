@@ -50,14 +50,6 @@ const historySchema = mongoose.Schema({
 });
 
 
-const fixedDepositSchema = mongoose.Schema({
-    amount: { type: Number, required: true },
-    time: { type: Number, required: true },
-    rate: { type: Number, required: true },
-    startDate: { type: Date, required: true, default: Date.now },
-    maturityDate: { type: Date, required: true },
-});
-
 const userSchema = mongoose.Schema({
     name: {
         required: true,
@@ -118,7 +110,6 @@ const userSchema = mongoose.Schema({
         default: 0
     },
     history: [historySchema],
-    fixedDeposits: [fixedDepositSchema],
     accountCreatedDate: {
         type: Date,
         required: true,

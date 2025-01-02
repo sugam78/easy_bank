@@ -1,4 +1,3 @@
-
 import '../../domain/entities/user.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../data_sources/auth_data_sources.dart';
@@ -10,7 +9,8 @@ class AuthRepositoryImpl implements AuthRepository {
   final AuthLocalDataSource localDataSource;
   final FingerprintDataSource fingerprintDataSource;
 
-  AuthRepositoryImpl(this.remoteDataSource, this.localDataSource, this.fingerprintDataSource);
+  AuthRepositoryImpl(
+      this.remoteDataSource, this.localDataSource, this.fingerprintDataSource);
 
   @override
   Future<void> sendOTP(String phoneNumber) {
@@ -23,9 +23,9 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> saveUserData(String name,String phoneNumber, String password, String pin) async{
+  Future<void> saveUserData(
+      String name, String phoneNumber, String password, String pin) async {
     await remoteDataSource.saveUserData(name, phoneNumber, password, pin);
-
   }
 
   @override
@@ -34,32 +34,33 @@ class AuthRepositoryImpl implements AuthRepository {
     await localDataSource.saveCredentials(phoneNumber, password, null);
 
     return User(
-      id: userModel.id,
-      name: userModel.name,
-      phoneNumber: userModel.phoneNumber,
-      accountNumber: userModel.accountNumber,
-      token: userModel.token
-    );
+        id: userModel.id,
+        name: userModel.name,
+        phoneNumber: userModel.phoneNumber,
+        accountNumber: userModel.accountNumber,
+        token: userModel.token);
   }
 
   @override
-  Future<User> loginWithFingerprint() async{
-    final isAuthenticated = await fingerprintDataSource.authenticateWithFingerprint();
+  Future<User> loginWithFingerprint() async {
+    final isAuthenticated =
+        await fingerprintDataSource.authenticateWithFingerprint();
     if (!isAuthenticated) {
       throw Exception('Fingerprint authentication failed');
     }
 
     final credentials = await localDataSource.getCredentials();
-    final phoneNumber = credentials['phoneNumber']!;
-    final password = credentials['password']!;
-
+    final phoneNumber = credentials['phoneNumber'];
+    final password = credentials['password'];
+    if (phoneNumber == null || password == null) {
+      throw Exception('Use credentials this time');
+    }
     final userModel = await remoteDataSource.login(phoneNumber, password);
     return User(
         id: userModel.id,
         name: userModel.name,
         phoneNumber: userModel.phoneNumber,
         accountNumber: userModel.accountNumber,
-        token: userModel.token
-    );
+        token: userModel.token);
   }
 }

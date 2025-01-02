@@ -12,7 +12,7 @@ class FingerprintDataSourceImpl implements FingerprintDataSource {
   FingerprintDataSourceImpl(this._localAuth);
 
   @override
-  Future<bool> authenticateWithFingerprint({String type = 'Login'}) async {
+  Future<bool> authenticateWithFingerprint({String type = ''}) async {
     try {
       final bool isDeviceSupported = await _localAuth.isDeviceSupported();
       if (!isDeviceSupported) {

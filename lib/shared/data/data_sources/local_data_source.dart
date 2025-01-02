@@ -12,14 +12,18 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
 
   @override
   Future<void> saveCredentials(String? phoneNumber, String? password,String? pin) async {
+    print(' Saving');
     if(phoneNumber!=null) {
       await _secureStorage.write(key: 'phoneNumber', value: phoneNumber);
+      print(' Saved: $phoneNumber');
     }
     if(password!=null) {
       await _secureStorage.write(key: 'password', value: password);
+      print(' Saved: $password');
     }
     if(pin!=null) {
       await _secureStorage.write(key: 'pin', value: password);
+      print(' Saved: $pin');
     }
   }
 
@@ -28,8 +32,8 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
     final phoneNumber = await _secureStorage.read(key: 'phoneNumber');
     final password = await _secureStorage.read(key: 'password');
     final pin = await _secureStorage.read(key: 'pin');
-    if (phoneNumber == null || password == null|| pin==null) {
-      throw Exception('No saved credentials found');
+    if (phoneNumber == null && password == null&& pin==null) {
+      throw Exception('Use Credentials this time');
     }
     return {'phoneNumber': phoneNumber, 'password': password,'pin':pin};
   }

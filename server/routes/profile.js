@@ -5,7 +5,7 @@ const auth = require("../middleware/auth");
 
 profileRouter.get("/api/user/profile", auth, async (req, res) => {
     try {
-        const user = await User.findById(req.user).select("-password -pin -history -fixedDeposits");
+        const user = await User.findById(req.user).select("-password -pin -history");
 
         if (!user) {
             return res.status(404).json({ error: "User not found" });

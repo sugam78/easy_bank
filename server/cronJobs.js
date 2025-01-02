@@ -1,7 +1,7 @@
 const cron = require('node-cron');
 const User = require('./models/user');
 
-cron.schedule('*/1 * * * *', async () => {
+cron.schedule('0 * * * *', async () => {
   console.log('Running daily interest calculation...');
   await updateDailyInterest();
 });

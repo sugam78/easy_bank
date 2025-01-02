@@ -9,8 +9,10 @@ class ChangePinRepositoryImpl extends ChangePinRepository{
   ChangePinRepositoryImpl(this.changePinDataSource, this.authLocalDataSource);
   @override
   Future<String> changePin(String oldPassword, String newPin) async{
-    await authLocalDataSource.saveCredentials(null, null, newPin);
-    return changePinDataSource.changePin(oldPassword, newPin);
+     return changePinDataSource.changePin(oldPassword, newPin).then((val)async{
+       await authLocalDataSource.saveCredentials(null, null, newPin);
+      return val;
+    });
   }
 
 }
