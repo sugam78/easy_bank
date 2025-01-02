@@ -14,6 +14,7 @@ class ProfileRepoImpl implements ProfileRepository {
         phone: profile.phone,
         accNumber: profile.accNumber,
         currentBalance: profile.currentBalance,
+        acurredInterest: profile.acurredInterest,
         accountCreatedDate: profile.accountCreatedDate,
         accountExpiryDate: profile.accountExpiryDate,
         transactionEnabled: profile.transactionEnabled);

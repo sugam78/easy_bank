@@ -41,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                       BalanceDetails(
                           availableBalance: state.profile.currentBalance.toStringAsFixed(2),
                           totalBalance: state.profile.currentBalance.toStringAsFixed(2),
-                          accuredInterest: '1024'),
+                          accuredInterest: state.profile.acurredInterest.toStringAsFixed(2)),
                       SizedBox(height: deviceHeight * 0.03,),
                       TransferBalanceButton(),
                       SizedBox(height: deviceHeight * 0.02,),

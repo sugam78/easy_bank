@@ -11,14 +11,14 @@ async function updateDailyInterest() {
     const users = await User.find({});
 
     for (const user of users) {
-      const { currentBalance, _id } = user;
+      const { currentBalance, _id,acurredInterest } = user;
 
       const dailyInterest = (currentBalance * (3 / 100)) / 365;
       const newBalance = currentBalance + dailyInterest;
+      const interest = acurredInterest + dailyInterest;
 
-      await User.updateOne({ _id }, { currentBalance: newBalance });
+      await User.updateOne({ _id }, { currentBalance: newBalance,acurredInterest: interest });
 
-      console.log(`Updated user ${_id} balance to ${newBalance}`);
     }
   } catch (error) {
     console.error('Error updating daily interest:', error);

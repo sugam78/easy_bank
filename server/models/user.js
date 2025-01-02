@@ -112,6 +112,11 @@ const userSchema = mongoose.Schema({
         required: true,
         default: 0
     },
+    acurredInterest: {
+        type: Number,
+        required: true,
+        default: 0
+    },
     history: [historySchema],
     fixedDeposits: [fixedDepositSchema],
     accountCreatedDate: {
