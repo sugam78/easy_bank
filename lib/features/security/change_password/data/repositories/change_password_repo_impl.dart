@@ -9,7 +9,9 @@ class ChangePasswordRepositoryImpl extends ChangePasswordRepository{
   ChangePasswordRepositoryImpl(this.changePasswordDataSource, this.authLocalDataSource);
   @override
   Future<String> changePassword(String oldPassword, String newPassword) async{
-    await authLocalDataSource.saveCredentials(null, newPassword, null);
-    return changePasswordDataSource.changePassword(oldPassword, newPassword);
+    return changePasswordDataSource.changePassword(oldPassword, newPassword).then((val)async{
+      await authLocalDataSource.saveCredentials(null, newPassword, null);
+      return val;
+    });
   }
 }
