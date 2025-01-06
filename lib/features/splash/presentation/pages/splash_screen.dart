@@ -27,9 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: Text('Easy Bank',style: Theme.of(context).textTheme.titleLarge!.copyWith(
-              fontSize: 52,
-            ),),
+            child: Image.asset('assets/logo.png'),
           ),
         ],
       ),
