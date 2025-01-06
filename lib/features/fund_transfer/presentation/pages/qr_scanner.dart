@@ -27,7 +27,7 @@ class QRScannerScreen extends StatelessWidget {
           for (final barcode in barcodes) {
             if (barcode.rawValue != null) {
               final qrData = QRService().parseQRData(barcode.rawValue!);
-              context.pushNamed('transferAccountNo', extra: qrData['accNumber']);
+              context.pushNamed('transferAccountNo', extra: qrData['accNumber'].toString());
               break;
             }
           }

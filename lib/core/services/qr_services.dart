@@ -61,7 +61,6 @@ class QRService {
     }
   }
 
-
   Future<void> saveQrToGallery(BuildContext context,GlobalKey repaintBoundaryKey) async {
     try {
       final RenderRepaintBoundary boundary =

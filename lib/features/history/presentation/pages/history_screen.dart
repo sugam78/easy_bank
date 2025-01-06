@@ -56,7 +56,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
             final history = state is FetchHistoryLoaded
                 ? state.transactionHistory
                 : (state as FetchHistoryNoMoreData).history;
-
+            if(history.length ==0){
+              return Center(
+                child: Text('No Transactions'),
+              );
+            }
             return ListView.builder(
               controller: _scrollController,
               itemCount: history.length + 1,
