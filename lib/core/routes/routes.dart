@@ -2,11 +2,13 @@ import 'package:easy_bank/features/auth/presentation/pages/login_screen.dart';
 import 'package:easy_bank/features/auth/presentation/pages/otp_screen.dart';
 import 'package:easy_bank/features/auth/presentation/pages/signup_screen.dart';
 import 'package:easy_bank/features/fund_transfer/presentation/pages/pin_field.dart';
+import 'package:easy_bank/features/fund_transfer/presentation/pages/qr_scanner.dart';
 import 'package:easy_bank/features/fund_transfer/presentation/pages/transaction_success.dart';
 import 'package:easy_bank/features/fund_transfer/presentation/pages/transfer_using_acc_no.dart';
 import 'package:easy_bank/features/fund_transfer/presentation/pages/transfer_using_mobile.dart';
 import 'package:easy_bank/features/history/presentation/pages/history_screen.dart';
 import 'package:easy_bank/features/home/presentation/pages/home_screen.dart';
+import 'package:easy_bank/features/my_qr_code/presentation/pages/my_qr_code.dart';
 import 'package:easy_bank/features/profile/presentation/pages/profile.dart';
 import 'package:easy_bank/features/security/change_password/presentation/pages/change_password_screen.dart';
 import 'package:easy_bank/features/security/change_pin/presentation/pages/change_pin_screen.dart';
@@ -114,7 +116,16 @@ final route = GoRouter(
       GoRoute(
         path: '/transferAccountNo',
         name: 'transferAccountNo',
-        builder: (context, state) => const TransferUsingAccNo(),
+        builder: (context, state) {
+          String? accNumber;
+          if(state.extra == null){
+            accNumber =null;
+          }
+          else {
+            accNumber = state.extra as String?;
+          }
+          return TransferUsingAccNo(accountNumber: accNumber);
+        },
       ),
       GoRoute(
         path: '/changePassword',
@@ -127,6 +138,11 @@ final route = GoRouter(
         builder: (context, state) => const ChangePinScreen(),
       ),
       GoRoute(
+        path: '/scanQr',
+        name: 'scanQr',
+        builder: (context, state) => const QRScannerScreen(),
+      ),
+      GoRoute(
         path: '/otp',
         name: 'otp',
         builder: (context, state) {
@@ -136,6 +152,16 @@ final route = GoRouter(
             password: extra['password'] as String,
             phone: extra['phone'] as String,
             pin: extra['pin'] as String,
+          );}
+      ),
+      GoRoute(
+        path: '/myQrCode',
+        name: 'myQrCode',
+        builder: (context, state) {
+          final extra = state.extra as Map<String, String>;
+          return MyQrCode(
+            qrUrl: extra['qrUrl'] as String,
+            accNo: extra['accNo'] as String,
           );}
       ),
 

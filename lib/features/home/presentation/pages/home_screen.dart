@@ -2,6 +2,8 @@ import 'package:easy_bank/core/resources/dimensions.dart';
 import 'package:easy_bank/features/home/presentation/widgets/account_details.dart';
 import 'package:easy_bank/features/home/presentation/widgets/balance_details.dart';
 import 'package:easy_bank/features/home/presentation/widgets/home_top.dart';
+import 'package:easy_bank/features/home/presentation/widgets/my_qr_button.dart';
+import 'package:easy_bank/features/home/presentation/widgets/scan_qr_button.dart';
 import 'package:easy_bank/features/home/presentation/widgets/transfer_balance_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,6 +46,10 @@ class HomeScreen extends StatelessWidget {
                           accuredInterest: state.profile.acurredInterest.toStringAsFixed(2)),
                       SizedBox(height: deviceHeight * 0.03,),
                       TransferBalanceButton(),
+                      SizedBox(height: deviceHeight * 0.02,),
+                      MyQrButton(qrCode: state.profile.qrCode,accNo: state.profile.accNumber,),
+                      SizedBox(height: deviceHeight * 0.02,),
+                      ScanQrButton(),
                       SizedBox(height: deviceHeight * 0.02,),
                     ],
                   ),

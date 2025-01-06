@@ -8,13 +8,17 @@ import 'package:go_router/go_router.dart';
 import '../manager/account_number/check_account_number_bloc.dart';
 
 class TransferUsingAccNo extends StatelessWidget {
-  const TransferUsingAccNo({super.key});
+  final String? accountNumber;
+  const TransferUsingAccNo({super.key, this.accountNumber});
 
   @override
   Widget build(BuildContext context) {
     final TextEditingController accountNoController = TextEditingController();
     final TextEditingController amountController = TextEditingController();
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+    if(accountNumber!=null){
+      accountNoController.text = accountNumber!;
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text('Fund transfer'),
@@ -36,8 +40,9 @@ class TransferUsingAccNo extends StatelessWidget {
                       height: deviceHeight * 0.02,
                     ),
                     CustomTextField(
-                      labelText: 'Enter Receiver Account Number',
+                      labelText: accountNumber??'Enter Receiver Account Number',
                       controller: accountNoController,
+                      enabled: accountNumber==null,
                       validator: (value) {
                         if (value == null || value.length != 14) {
                           return 'Enter valid account number';

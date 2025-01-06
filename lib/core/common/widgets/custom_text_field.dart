@@ -11,6 +11,7 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
   final TextEditingController? controller;
+  final bool enabled;
 
   const CustomTextField({
     super.key,
@@ -20,6 +21,7 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.onChanged,
     this.controller,
+    this.enabled = true
   });
 
   @override
@@ -31,6 +33,7 @@ class CustomTextField extends StatelessWidget {
         return TextFormField(
           controller: controller,
           keyboardType: keyboardType,
+          enabled: enabled,
           obscureText: isPassword ? isObscured : false,
           decoration: InputDecoration(
             labelText: labelText,

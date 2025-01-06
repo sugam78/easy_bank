@@ -4,6 +4,7 @@ const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const auth = require("../middleware/auth");
+const QRCode = require('qrcode');
 
 const generateUniqueAccountNumber = async () => {
     let accountNumber;
@@ -35,10 +36,14 @@ authRouter.post("/api/signup", async (req, res) => {
         // Generate a unique 14-digit account number
         const accNumber = await generateUniqueAccountNumber();
 
+        const qrData = { name, accNumber };
+
+        const qrCode = await QRCode.toDataURL(JSON.stringify(qrData));
+
         // Set account creation date and expiry date
         const accountCreatedDate = new Date();
         const accountExpiryDate = new Date(accountCreatedDate);
-        accountExpiryDate.setFullYear(accountCreatedDate.getFullYear() + 1);
+        accountExpiryDate.setFullYear(accountCreatedDate.getFullYear() + 5);
 
         // Create a new user
         let user = new User({
@@ -48,7 +53,8 @@ authRouter.post("/api/signup", async (req, res) => {
             pin: hashedPin,
             accNumber,
             accountCreatedDate,
-            accountExpiryDate
+            accountExpiryDate,
+            qrCode
         });
 
         user = await user.save();

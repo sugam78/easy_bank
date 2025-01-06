@@ -2,6 +2,7 @@ class Profile {
   final String name;
   final String phone;
   final String accNumber;
+  final String qrCode;
   final double currentBalance;
   final double acurredInterest;
   final DateTime accountCreatedDate;
@@ -17,5 +18,6 @@ class Profile {
     required this.accountCreatedDate,
     required this.accountExpiryDate,
     required this.transactionEnabled,
+    required this.qrCode,
   });
 }

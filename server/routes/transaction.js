@@ -43,7 +43,7 @@ transactionRouter.post("/api/user/checkAccountNumber", auth, async (req, res) =>
             return res.status(404).json({ error: "No user found" });
         }
         if (user._id.toString() === req.user.toString()) {
-                    return res.status(400).json({ error: "Cannot validate your own mobile number" });
+                    return res.status(400).json({ error: "Cannot validate your own Account number" });
                 }
 
         res.status(200).json({ message: "User Found" });

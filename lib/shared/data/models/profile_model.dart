@@ -2,6 +2,7 @@ class ProfileModel {
   final String name;
   final String phone;
   final String accNumber;
+  final String qrCode;
   final double currentBalance;
   final double acurredInterest;
   final DateTime accountCreatedDate;
@@ -17,6 +18,7 @@ class ProfileModel {
     required this.accountCreatedDate,
     required this.accountExpiryDate,
     required this.transactionEnabled,
+    required this.qrCode,
   });
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
@@ -24,6 +26,7 @@ class ProfileModel {
       name: json['name'],
       phone: json['phone'],
       accNumber: json['accNumber'],
+      qrCode: json['qrCode'],
       currentBalance: (json['currentBalance'] as num).toDouble(),
       acurredInterest: (json['acurredInterest'] as num).toDouble(),
       accountCreatedDate: DateTime.parse(json['accountCreatedDate']),
@@ -41,7 +44,8 @@ class ProfileModel {
       'acurredInterest': acurredInterest,
       'accountCreatedDate': accountCreatedDate.toIso8601String(),
       'accountExpiryDate': accountExpiryDate.toIso8601String(),
-      'transactionEnabled': transactionEnabled
+      'transactionEnabled': transactionEnabled,
+      'qrCode': qrCode
     };
   }
 }

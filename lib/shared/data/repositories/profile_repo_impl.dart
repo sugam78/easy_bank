@@ -17,6 +17,8 @@ class ProfileRepoImpl implements ProfileRepository {
         acurredInterest: profile.acurredInterest,
         accountCreatedDate: profile.accountCreatedDate,
         accountExpiryDate: profile.accountExpiryDate,
-        transactionEnabled: profile.transactionEnabled);
+        transactionEnabled: profile.transactionEnabled,
+        qrCode:profile.qrCode
+    );
   }
 }

@@ -122,7 +122,11 @@ const userSchema = mongoose.Schema({
     transactionEnabled: {
             type: Boolean,
             default: true
-        }
+        },
+    qrCode: {
+        type: String,
+        required: false
+    }
 });
 
 const user = mongoose.model('user', userSchema);
