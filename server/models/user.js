@@ -126,7 +126,11 @@ const userSchema = mongoose.Schema({
     qrCode: {
         type: String,
         required: false
-    }
+    },
+    fcmToken: {
+            type: String,
+            required: true,
+        },
 });
 
 const user = mongoose.model('user', userSchema);

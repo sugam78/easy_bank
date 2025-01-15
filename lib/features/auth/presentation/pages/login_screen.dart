@@ -1,5 +1,4 @@
 import 'package:easy_bank/features/auth/presentation/widgets/login_form.dart';
-import 'package:easy_bank/features/splash/presentation/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

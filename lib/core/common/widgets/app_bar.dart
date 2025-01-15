@@ -7,7 +7,6 @@ class MyAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text('Easy Bank'),
-
     );
   }
 }

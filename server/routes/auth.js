@@ -21,7 +21,7 @@ const generateUniqueAccountNumber = async () => {
 
 authRouter.post("/api/signup", async (req, res) => {
     try {
-        const { name, phone, password, pin } = req.body;
+        const { name, phone, password, pin, fcmToken } = req.body;
 
         // Check if a user with the same phone number already exists
         const existingUser = await User.findOne({ phone });
@@ -54,7 +54,8 @@ authRouter.post("/api/signup", async (req, res) => {
             accNumber,
             accountCreatedDate,
             accountExpiryDate,
-            qrCode
+            qrCode,
+            fcmToken
         });
 
         user = await user.save();

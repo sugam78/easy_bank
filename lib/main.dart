@@ -25,6 +25,7 @@ import 'package:easy_bank/features/security/change_password/presentation/manager
 import 'package:easy_bank/shared/bloc/profile_bloc/profile_bloc.dart';
 import 'package:easy_bank/shared/domain/use_cases/get_profile_use_case.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -41,6 +42,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await Hive.initFlutter();
  await  Hive.openBox('SETTINGS');
  await  Hive.openBox('Biometrics');
@@ -49,6 +51,11 @@ void main() async {
   setupServiceLocator();
 
   runApp( MyApp(settingsBox: settingsBox,));
+}
+
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message)async {
+  await Firebase.initializeApp();
 }
 
 class MyApp extends StatelessWidget {

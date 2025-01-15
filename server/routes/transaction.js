@@ -3,7 +3,7 @@ const transactionRouter = express.Router();
 const User = require("../models/user");
 const auth = require("../middleware/auth");
 const bcryptjs = require("bcryptjs");
-
+const admin = require("firebase-admin");
 
 transactionRouter.post("/api/user/checkMobileNumber", auth, async (req, res) => {
     try {
@@ -131,6 +131,34 @@ transactionRouter.post("/api/user/balanceTransfer", auth, async (req, res) => {
         // Save changes
         await sender.save();
         await receiver.save();
+
+
+        const senderToken = sender.fcmToken; // Ensure FCM token is saved in the User model
+            const receiverToken = receiver.fcmToken; // Same for the receiver
+
+            const message = {
+              notification: {
+                title: "Transaction Successful",
+                body: `You have transferred ${amount} to ${receiver.name}`,
+              },
+              token: senderToken,
+            };
+
+            const receiverMessage = {
+              notification: {
+                title: "Transaction Received",
+                body: `You have received ${amount} from ${sender.name}`,
+              },
+              token: receiverToken,
+            };
+
+            if (senderToken) {
+              await admin.messaging().send(message);
+            }
+
+            if (receiverToken) {
+              await admin.messaging().send(receiverMessage);
+            }
 
         res.status(200).json({ message: "Balance successfully transferred" });
 

@@ -53,10 +53,14 @@ class QRService {
               return;
             }
           }
+          }
+        if(context.mounted){
+          CustomSnackbar.show(context, message: 'No valid QR code found in the selected image.', type: SnackbarType.error);
         }
-        CustomSnackbar.show(context, message: 'No valid QR code found in the selected image.', type: SnackbarType.error);
       } catch (e) {
-        CustomSnackbar.show(context, message: 'Failed to process the QR code image. Please try again.', type: SnackbarType.error);
+        if(context.mounted){
+          CustomSnackbar.show(context, message: 'Failed to process the QR code image. Please try again.', type: SnackbarType.error);
+        }
       }
     }
   }
@@ -76,27 +80,19 @@ class QRService {
       );
 
       if (result.isSuccess) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text('QR Code saved to gallery!'),
-            duration: const Duration(seconds: 3),
-          ),
-        );
+        if(context.mounted){
+          CustomSnackbar.show(context, message: 'QR Code saved to gallery!', type: SnackbarType.success);
+        }
+
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Failed to save QR Code to gallery : ${result.errorMessage}'),
-            duration: Duration(seconds: 3),
-          ),
-        );
+        if(context.mounted){
+          CustomSnackbar.show(context, message: 'Failed to save QR Code to gallery : ${result.errorMessage}', type: SnackbarType.success);
+        }
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Failed to save QR Code : $e'),
-          duration: Duration(seconds: 3),
-        ),
-      );
+      if(context.mounted){
+        CustomSnackbar.show(context, message: 'Failed to save QR Code to gallery : $e', type: SnackbarType.success);
+      }
     }
   }
 

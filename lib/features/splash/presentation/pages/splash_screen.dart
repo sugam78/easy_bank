@@ -4,6 +4,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/services/notification_services.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -13,9 +15,11 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
+  final NotificationServices notificationServices = NotificationServices();
   @override
   void initState() {
     super.initState();
+    notificationServices.firebaseInit();
     Timer(Duration(seconds: 3), (){
        context.go('/login');
     });

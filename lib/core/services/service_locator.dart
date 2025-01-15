@@ -1,3 +1,4 @@
+import 'package:easy_bank/core/services/notification_services.dart';
 import 'package:easy_bank/features/profile/data/data_sources/toggle_transaction_data_source.dart';
 import 'package:easy_bank/features/profile/data/repository/toggle_transaction_repo_impl.dart';
 import 'package:easy_bank/features/profile/domain/repository/toggle_transaction_repository.dart';
@@ -66,12 +67,14 @@ void setupServiceLocator() {
           () => FingerprintDataSourceImpl(packagesLocator<LocalAuthentication>()));
   sharedLocator.registerLazySingleton<AuthLocalDataSource>(
           () => AuthLocalDataSourceImpl(packagesLocator<FlutterSecureStorage>()));
+  sharedLocator.registerLazySingleton<NotificationServices>(
+          () => NotificationServices());
 
   authLocator.registerLazySingleton<AuthRepository>(
           () => AuthRepositoryImpl(authLocator<AuthRemoteDataSource>(),sharedLocator<AuthLocalDataSource>(),sharedLocator<FingerprintDataSource>()));
 
   authLocator.registerLazySingleton(() => LoginUseCase(authLocator<AuthRepository>()));
-  authLocator.registerLazySingleton(() => SaveUserDataUseCase(authLocator<AuthRepository>()));
+  authLocator.registerLazySingleton(() => SaveUserDataUseCase(authLocator<AuthRepository>(),sharedLocator<NotificationServices>()));
   authLocator.registerLazySingleton(() => SendOtpUseCase(authLocator<AuthRepository>()));
   authLocator.registerLazySingleton(() => VerifyOtpUseCase(authLocator<AuthRepository>()));
   authLocator.registerLazySingleton(() => AuthenticateWthFingerprintUseCase(authLocator<AuthRepository>()));

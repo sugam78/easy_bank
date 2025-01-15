@@ -7,7 +7,7 @@ import '../models/user_model.dart';
 abstract class AuthRemoteDataSource {
   Future<void> sendOTP(String phoneNumber);
   Future<bool> verifyOTP(String otp);
-  Future<void> saveUserData(String name,String phoneNumber, String password, String pin);
+  Future<void> saveUserData(String name,String phoneNumber, String password, String pin,String fcmToken);
   Future<UserModel> login(String phoneNumber, String password);
 }
 
@@ -62,13 +62,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
 
   @override
-  Future<void> saveUserData(String name,String phoneNumber, String password, String pin) async {
+  Future<void> saveUserData(String name,String phoneNumber, String password, String pin,String fcmToken) async {
     try {
       await apiHandler(ApiConstants.signup, 'POST',body: {
         'name':name,
         'phone':phoneNumber,
         'password':password,
         'pin':pin,
+        'fcmToken': fcmToken
       });
     }
     catch (e) {

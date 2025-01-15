@@ -1,4 +1,5 @@
 import 'package:easy_bank/core/common/widgets/custom_snackbar.dart';
+import 'package:easy_bank/core/services/notification_services.dart';
 import 'package:easy_bank/features/history/presentation/widgets/history_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,10 +14,12 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
+  final NotificationServices notificationServices = NotificationServices();
   late ScrollController _scrollController;
   @override
   void initState() {
     super.initState();
+    notificationServices.requestNotificationPermission();
     _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
   }
@@ -56,7 +59,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             final history = state is FetchHistoryLoaded
                 ? state.transactionHistory
                 : (state as FetchHistoryNoMoreData).history;
-            if(history.length ==0){
+            if(history.isEmpty){
               return Center(
                 child: Text('No Transactions'),
               );

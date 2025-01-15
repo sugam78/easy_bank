@@ -1,7 +1,6 @@
 import 'package:easy_bank/core/common/widgets/custom_snackbar.dart';
 import 'package:easy_bank/core/resources/app_colors.dart';
 import 'package:easy_bank/core/resources/dimensions.dart';
-import 'package:easy_bank/core/routes/routes.dart';
 import 'package:easy_bank/features/fund_transfer/presentation/manager/fund_transfer/transfer_fund_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,7 +65,6 @@ class PinField extends StatelessWidget {
               ),
               BlocConsumer<TransferFundBloc, TransferFundState>(
                 listener: (context, state) {
-                  print(state);
                   if(state is TransferFundError){
                     CustomSnackbar.show(context, message: state.message, type: SnackbarType.error);
                   }

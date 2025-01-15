@@ -15,7 +15,6 @@ Future<dynamic> apiHandler(
 
   String token = await Hive.box('SETTINGS').get('token') ?? "";
 
-  print("Token Received: $token");
   Map<String, String> headers = {
     'Content-Type': 'application/json; charset=UTF-8',
     'x-auth-token': token,
@@ -27,13 +26,11 @@ Future<dynamic> apiHandler(
       headers: headers,
     );
   } else if (method.toUpperCase() == 'POST') {
-    print("Post Body: $body");
     response = await http.post(
       Uri.parse(url),
       headers: headers,
       body: jsonEncode(body),
     );
-    print("Response: ${response.body}");
   } else if (method.toUpperCase() == 'PUT') {
     response = await http.put(
       Uri.parse(url),
@@ -57,9 +54,6 @@ Future<dynamic> apiHandler(
   if (response.statusCode == 200 || response.statusCode == 201) {
     return jsonResponse;
   } else {
-    print("Error Response: $jsonResponse");
-    print("URL: $url");
-    print("Status Code: ${response.statusCode}");
     final errorMessage =jsonResponse["error"]?? "An error occurred";
 
     throw Exception(errorMessage);

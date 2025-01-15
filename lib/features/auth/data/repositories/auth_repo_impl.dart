@@ -24,8 +24,8 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> saveUserData(
-      String name, String phoneNumber, String password, String pin) async {
-    await remoteDataSource.saveUserData(name, phoneNumber, password, pin);
+      String name, String phoneNumber, String password, String pin,String fcmToken) async {
+    await remoteDataSource.saveUserData(name, phoneNumber, password, pin,fcmToken);
   }
 
   @override

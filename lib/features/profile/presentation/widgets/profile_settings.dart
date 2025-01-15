@@ -1,4 +1,3 @@
-import 'package:easy_bank/core/common/widgets/bottom_nav_bar.dart';
 import 'package:easy_bank/core/resources/app_colors.dart';
 import 'package:easy_bank/features/profile/presentation/widgets/fingerprint_toggle.dart';
 import 'package:easy_bank/features/profile/presentation/widgets/toggle_theme.dart';
@@ -40,7 +39,7 @@ class ProfileSettings extends StatelessWidget {
         SizedBox(height: deviceHeight * 0.02,),
         ProfileSettingsContainer(title: 'Logout', onTap: (){
           context.go('/login');
-        },icon: Icon(Icons.logout),color: AppColors.error.withOpacity(0.5),),
+        },icon: Icon(Icons.logout),color: AppColors.error,),
       ],
     );
   }

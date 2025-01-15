@@ -10,6 +10,13 @@ const securityRouter = require("./routes/security.js");
 const cronJobs = require('./cronJobs');
 
 
+const admin = require("firebase-admin");
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+})
+
 const app = express();
 const DB = process.env.DB_URI;
 const PORT = 3000;
